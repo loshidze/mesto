@@ -11,4 +11,5 @@
 * JavaScript
 
 ### Ссылка на проект
+https://loshidze.github.io/mesto/
 
