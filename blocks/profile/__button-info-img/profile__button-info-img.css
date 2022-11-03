@@ -1,0 +1,9 @@
+.profile__button-info-img {
+  max-width: 10px;
+}
+
+@media screen and (max-width: 780px) {
+  .profile__button-info-img {
+    max-width: 7.5px;
+  }
+}
