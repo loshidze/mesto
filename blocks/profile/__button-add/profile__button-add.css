@@ -7,11 +7,11 @@
   border-radius: 2px;
   box-sizing: border-box;
   width: 150px;
-  height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  min-height: 50px;
   cursor: pointer;
+  background-image: url(../../../images/button2.svg);
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .profile__button-add:hover {
@@ -22,5 +22,6 @@
   .profile__button-add {
     width: 100%;
     margin-top: 36px;
+    background-size: 16px;
   }
 }

@@ -1,16 +1,16 @@
 .profile__button-info {
   margin: 0;
   padding: 0;
-  align-self: end;
+  align-self: center;
   border: 1px solid #FFFFFF;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   width: 24px;
   height: 24px;
   box-sizing: border-box;
   background-color: #000000;
   cursor: pointer;
+  background-image: url(../../../images/button1.svg);
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .profile__button-info:hover {
@@ -21,5 +21,6 @@
   .profile__button-info {
     width: 18px;
     height: 18px;
+    background-size: 7.5px;
   }
 }
