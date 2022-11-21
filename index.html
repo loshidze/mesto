@@ -35,8 +35,8 @@
       <h2 class="popup__title">Редактировать профиль</h2>
       <form class="popup__form" name="edit" action="#">
         <fieldset class="popup__fieldset">
-          <input class="popup__input" id="contentname" type="text" name="contentname" placeholder="Имя">
-          <input class="popup__input" id="occupation" type="text" name="occupation" placeholder="Вид деятельности">
+          <input class="popup__input" id="contentname" type="text" name="contentname" placeholder="Имя" required>
+          <input class="popup__input" id="occupation" type="text" name="occupation" placeholder="Вид деятельности" required>
           <button class="popup__button" type="submit">Сохранить</button>
         </fieldset>
       </form>
@@ -49,8 +49,8 @@
       <h2 class="popup__title">Новое место</h2>
       <form class="popup__form" name="edit" action="#">
         <fieldset class="popup__fieldset">
-          <input class="popup__input" id="cardname" type="text" name="cardname" placeholder="Название">
-          <input class="popup__input" id="link" type="text" name="link" placeholder="Ссылка на картинку">
+          <input class="popup__input" id="cardname" type="text" name="cardname" placeholder="Название" required>
+          <input class="popup__input" id="link" type="url" name="link" placeholder="Ссылка на картинку" required>
           <button class="popup__button" type="submit">Создать</button>
         </fieldset>
       </form>
@@ -60,14 +60,14 @@
   <div class="popup popup_type_image">
     <figure class="popup__image">
       <button class="popup__close-btn" type="button" aria-label="закрыть окно"></button>
-      <img class="popup__open-image" src="#" alt="увеличенное фото">
+      <img class="popup__open-image" src="#" alt="#">
       <figcaption class="popup__image-title"></figcaption>
     </figure>
   </div>
 
   <template id="new-card">
     <figure class="gallery__item">
-      <img class="gallery__image" src="#" alt="изображение места">
+      <img class="gallery__image" src="#" alt="#">
       <button class="gallery__button-delete" aria-label="удалить" type="button"></button>
       <figcaption class="gallery__caption">
         <p class="gallery__item-title"></p>
@@ -76,7 +76,8 @@
     </figure>
   </template>
 
-  <script src="./scripts/script.js"></script>
+  <script src="./scripts/cards.js" defer></script>
+  <script src="./scripts/script.js" defer></script>
 </body>
 </html>
 
