@@ -14,6 +14,7 @@ const profileSubtitle = document.querySelector('.profile__subtitle');
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+  enableValidation(optionsForValidation);
 }
 
 function closePopup(popup) {
@@ -32,7 +33,21 @@ profileEditButton.addEventListener('click', () => {
   jobInput.value = profileSubtitle.textContent;
   openPopup(popupProfile);
 });
+
 popupProfileCloseButton.addEventListener('click', () => closePopup(popupProfile));
+
+popupProfile.addEventListener('click', (evt) => {
+  if (evt.target === evt.currentTarget) {
+    closePopup(popupProfile);
+  }
+});
+
+document.addEventListener('keydown', function(evt) {
+  if(evt.key === 'Escape') {
+    document.querySelector('.popup_opened').classList.remove('popup_opened');
+  }
+});
+
 formProfile.addEventListener('submit', handleSubmitEditProfileForm);
 
 
@@ -52,12 +67,18 @@ const popupImagePicture = popupImage.querySelector('.popup__open-image');
 const popupImageTitle = popupImage.querySelector('.popup__image-title');
 const popupImageCloseButton = popupImage.querySelector('.popup__close-btn');
 
-addCardButton.addEventListener('click', () => openPopup(popupCard));
+const cardContainer = document.querySelector('.gallery');
+const cardTemplate = document.querySelector('#new-card').content.querySelector('.gallery__item');
+
+addCardButton.addEventListener('click', () => {openPopup(popupCard)});
+
 popupCardCloseButton.addEventListener('click', () => closePopup(popupCard));
 
-const cardContainer = document.querySelector('.gallery');
-
-const cardTemplate = document.querySelector('#new-card').content.querySelector('.gallery__item');
+popupCard.addEventListener('click', (evt) => {
+  if (evt.target === evt.currentTarget) {
+    closePopup(popupCard);
+  }
+});
 
 const handleLikeCard = (event) => {
   event.target.closest('.gallery__button-like').classList.toggle('gallery__button-like_active');
@@ -117,3 +138,9 @@ initialCards.forEach((dataCard) => {
 // попап с картинкой
 
 popupImageCloseButton.addEventListener('click', () => closePopup(popupImage));
+
+popupImage.addEventListener('click', (evt) => {
+  if (evt.target === evt.currentTarget) {
+    closePopup(popupImage);
+  }
+});
