@@ -2,11 +2,10 @@
 
 const profileEditButton = document.querySelector('.profile__button-info');
 const popupProfile = document.querySelector('.popup_type_profile');
-const popupProfileCloseButton = popupProfile.querySelector('.popup__close-btn');
 
-const formProfile = popupProfile.querySelector('.popup__form');
-const nameInput = formProfile.querySelector('#contentname');
-const jobInput = formProfile.querySelector('#occupation');
+const formProfile = document.forms.editprofile;
+const nameInput = editprofile.elements.contentname;
+const jobInput = editprofile.elements.occupation;
 
 const profileTitle = document.querySelector('.profile__title');
 const profileSubtitle = document.querySelector('.profile__subtitle');
@@ -14,11 +13,12 @@ const profileSubtitle = document.querySelector('.profile__subtitle');
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
-  enableValidation(optionsForValidation);
+  document.addEventListener('keydown', closeByEscape);
 }
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closeByEscape);
 }
 
 function handleSubmitEditProfileForm (evt) {
@@ -34,19 +34,26 @@ profileEditButton.addEventListener('click', () => {
   openPopup(popupProfile);
 });
 
-popupProfileCloseButton.addEventListener('click', () => closePopup(popupProfile));
 
-popupProfile.addEventListener('click', (evt) => {
-  if (evt.target === evt.currentTarget) {
-    closePopup(popupProfile);
-  }
-});
+const popups = document.querySelectorAll('.popup')
 
-document.addEventListener('keydown', function(evt) {
-  if(evt.key === 'Escape') {
-    document.querySelector('.popup_opened').classList.remove('popup_opened');
+popups.forEach((popup) => {
+  popup.addEventListener('mousedown', (evt) => {
+    if (evt.target.classList.contains('popup_opened')) {
+      closePopup(popup)
+    }
+    if (evt.target.classList.contains('popup__close')) {
+      closePopup(popup)
+    }
+  })
+})
+
+function closeByEscape(evt) {
+  if (evt.key === 'Escape') {
+    const openedPopup = document.querySelector('.popup_opened');
+    closePopup(openedPopup);
   }
-});
+}
 
 formProfile.addEventListener('submit', handleSubmitEditProfileForm);
 
@@ -56,29 +63,20 @@ formProfile.addEventListener('submit', handleSubmitEditProfileForm);
 
 const addCardButton = document.querySelector('.profile__button-add');
 const popupCard = document.querySelector('.popup_type_card');
-const popupCardCloseButton = popupCard.querySelector('.popup__close-btn');
 
-const formCard = popupCard.querySelector('.popup__form');
-const placeInput = formCard.querySelector('#cardname');
-const imageInput = formCard.querySelector('#link');
+const formCard = document.forms.editcard;
+const placeInput = editcard.elements.cardname;
+const imageInput = editcard.elements.link;
 
 const popupImage = document.querySelector('.popup_type_image');
 const popupImagePicture = popupImage.querySelector('.popup__open-image');
 const popupImageTitle = popupImage.querySelector('.popup__image-title');
-const popupImageCloseButton = popupImage.querySelector('.popup__close-btn');
 
 const cardContainer = document.querySelector('.gallery');
 const cardTemplate = document.querySelector('#new-card').content.querySelector('.gallery__item');
 
 addCardButton.addEventListener('click', () => {openPopup(popupCard)});
 
-popupCardCloseButton.addEventListener('click', () => closePopup(popupCard));
-
-popupCard.addEventListener('click', (evt) => {
-  if (evt.target === evt.currentTarget) {
-    closePopup(popupCard);
-  }
-});
 
 const handleLikeCard = (event) => {
   event.target.closest('.gallery__button-like').classList.toggle('gallery__button-like_active');
@@ -133,14 +131,4 @@ formCard.addEventListener("submit", handleSubmitAddCardForm);
 
 initialCards.forEach((dataCard) => {
   renderCard(dataCard);
-});
-
-// попап с картинкой
-
-popupImageCloseButton.addEventListener('click', () => closePopup(popupImage));
-
-popupImage.addEventListener('click', (evt) => {
-  if (evt.target === evt.currentTarget) {
-    closePopup(popupImage);
-  }
 });

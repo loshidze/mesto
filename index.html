@@ -31,9 +31,9 @@
 
   <div class="popup popup_type_profile">
     <div class="popup__container">
-      <button aria-label="закрыть окно" type="button" class="popup__close-btn"></button>
+      <button aria-label="закрыть окно" type="button" class="popup__close"></button>
       <h2 class="popup__title">Редактировать профиль</h2>
-      <form class="popup__form" name="edit" action="#" novalidate>
+      <form class="popup__form" name="editprofile" action="#" novalidate>
         <fieldset class="popup__fieldset">
           <input class="popup__input" id="contentname" type="text" name="contentname" placeholder="Имя" minlength="2" maxlength="40" required>
           <span class="contentname-error popup__input-text-error"></span>
@@ -47,9 +47,9 @@
 
   <div class="popup popup_type_card">
     <div class="popup__container">
-      <button aria-label="закрыть окно" type="button" class="popup__close-btn"></button>
+      <button aria-label="закрыть окно" type="button" class="popup__close"></button>
       <h2 class="popup__title">Новое место</h2>
-      <form class="popup__form" name="edit" action="#" novalidate>
+      <form class="popup__form" name="editcard" action="#" novalidate>
         <fieldset class="popup__fieldset">
           <input class="popup__input" id="cardname" type="text" name="cardname" placeholder="Название" minlength="2" maxlength="30" required>
           <span class="cardname-error popup__input-text-error"></span>
@@ -63,7 +63,7 @@
 
   <div class="popup popup_type_image">
     <figure class="popup__image">
-      <button class="popup__close-btn" type="button" aria-label="закрыть окно"></button>
+      <button class="popup__close" type="button" aria-label="закрыть окно"></button>
       <img class="popup__open-image" src="#" alt="#">
       <figcaption class="popup__image-title"></figcaption>
     </figure>
