@@ -1,3 +1,7 @@
+import Card from "./Card.js"
+import initialCards from "./cards.js"
+import FormValidator from "./FormValidator.js"
+
 //попап редактирования профиля
 
 const profileEditButton = document.querySelector('.profile__button-info');
@@ -73,48 +77,8 @@ const popupImagePicture = popupImage.querySelector('.popup__open-image');
 const popupImageTitle = popupImage.querySelector('.popup__image-title');
 
 const cardContainer = document.querySelector('.gallery');
-const cardTemplate = document.querySelector('#new-card').content.querySelector('.gallery__item');
 
 addCardButton.addEventListener('click', () => {openPopup(popupCard)});
-
-
-const handleLikeCard = (event) => {
-  event.target.closest('.gallery__button-like').classList.toggle('gallery__button-like_active');
-}
-
-const handleDeleteCard = (event) => {
-  event.target.closest('.gallery__item').remove();
-}
-
-const fillPopupImageData = (dataCard) => {
-  popupImagePicture.src = dataCard.link;
-  popupImageTitle.textContent = dataCard.name;
-  popupImagePicture.alt = dataCard.name;
-}
-
-const generateCard = (dataCard) => {
-  const newCard = cardTemplate.cloneNode(true);
-
-  const nameImageTitle = newCard.querySelector('.gallery__item-title');
-  nameImageTitle.textContent = dataCard.name;
-
-  const cardDeleteButton = newCard.querySelector('.gallery__button-delete');
-  cardDeleteButton.addEventListener('click', handleDeleteCard);
-
-  const cardLikeButton = newCard.querySelector('.gallery__button-like');
-  cardLikeButton.addEventListener('click', handleLikeCard);
-
-  const cardImage = newCard.querySelector('.gallery__image');
-  cardImage.src = dataCard.link;
-  cardImage.alt = dataCard.name;
-
-  cardImage.addEventListener('click', () => {
-    openPopup(popupImage);
-    fillPopupImageData(dataCard);
-  });
-
-  return newCard;
-}
 
 const handleSubmitAddCardForm = (event) => {
   event.preventDefault();
@@ -124,7 +88,8 @@ const handleSubmitAddCardForm = (event) => {
 };
 
 const renderCard = (dataCard) => {
-  cardContainer.prepend(generateCard(dataCard));
+  const card = new Card(dataCard)
+  cardContainer.prepend(card.getView());
 };
 
 formCard.addEventListener("submit", handleSubmitAddCardForm);
@@ -132,3 +97,21 @@ formCard.addEventListener("submit", handleSubmitAddCardForm);
 initialCards.forEach((dataCard) => {
   renderCard(dataCard);
 });
+
+// валидация
+
+const optionsForValidation = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inputErrorClass: '.popup__input-text-error',
+  errorClass: '.popup__input-error'
+};
+
+const profileValidation = new FormValidator(optionsForValidation, formProfile);
+const cardValidation = new FormValidator(optionsForValidation, formCard);
+
+profileValidation.enableValidation();
+cardValidation.enableValidation();
+
+export {openPopup, popupImage, popupImagePicture, popupImageTitle}
