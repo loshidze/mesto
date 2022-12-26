@@ -1,16 +1,16 @@
-import {openPopup, popupImage, popupImagePicture, popupImageTitle} from "./index.js"
-
 class Card {
-  constructor({name, link}) {
-    this._name = name;
-    this._link = link;
+  constructor(data, templateSelector, handleCardClick) {
+    this._name = data.name;
+    this._link = data.link;
+    this._templateSelector = templateSelector;
+    this._handleCardClick = handleCardClick;
   }
 
 
   _getTemplateCard() {
-    const card = document.querySelector('#new-card').content.querySelector('.gallery__item').cloneNode(true);
+    this._card = document.querySelector(this._templateSelector).content.querySelector('.gallery__item').cloneNode(true);
 
-    return card;
+    return this._card;
   }
 
   _handleDeleteCard() {
@@ -19,36 +19,28 @@ class Card {
   }
 
   _handleLikeCard() {
-    this._newCard.querySelector('.gallery__button-like').classList.toggle('gallery__button-like_active');
-  }
-
-  _fillPopupImageData() {
-    popupImagePicture.src = this._link;
-    popupImageTitle.textContent = this._name;
-    popupImagePicture.alt = this._name;
+    this._likeButton.classList.toggle('gallery__button-like_active');
   }
 
   _setEventListeners() {
     const deleteCard = this._newCard.querySelector('.gallery__button-delete');
     deleteCard.addEventListener('click', () => { this._handleDeleteCard() });
 
-    const likeCard = this._newCard.querySelector('.gallery__button-like');
-    likeCard.addEventListener('click', () => { this._handleLikeCard() });
+    this._likeButton = this._newCard.querySelector('.gallery__button-like');
+    this._likeButton.addEventListener('click', () => { this._handleLikeCard() });
 
-    const cardImage = this._newCard.querySelector('.gallery__image');
-    cardImage.addEventListener('click', () => {
-      openPopup(popupImage);
-      this._fillPopupImageData()
+    this._cardImage = this._newCard.querySelector('.gallery__image');
+    this._cardImage.addEventListener('click', () => {
+      this._handleCardClick(this._name, this._link)
     });
   }
 
   _setData() {
-    const name = this._newCard.querySelector('.gallery__item-title');
-    name.textContent = this._name;
+    this._title = this._newCard.querySelector('.gallery__item-title');
+    this._title.textContent = this._name;
 
-    const link = this._newCard.querySelector('.gallery__image');
-    link.src = this._link;
-    link.alt = this._name;
+    this._cardImage.src = this._link;
+    this._cardImage.alt = this._name;
   }
 
   getView() {

@@ -87,16 +87,26 @@ const handleSubmitAddCardForm = (event) => {
   closePopup(popupCard);
 };
 
+function handleCardClick(name, link) {
+  popupImagePicture.src = link;
+  popupImageTitle.textContent = name;
+  popupImagePicture.alt = name;
+  openPopup(popupImage);
+}
+
+function createCard(item) {
+  const cardElement = new Card(item, "#new-card", handleCardClick).getView();
+  return cardElement;
+}
+
 const renderCard = (dataCard) => {
-  const card = new Card(dataCard)
-  cardContainer.prepend(card.getView());
+  const card = createCard(dataCard)
+  cardContainer.prepend(card);
 };
 
 formCard.addEventListener("submit", handleSubmitAddCardForm);
 
-initialCards.forEach((dataCard) => {
-  renderCard(dataCard);
-});
+initialCards.forEach(renderCard);
 
 // валидация
 
@@ -114,4 +124,3 @@ const cardValidation = new FormValidator(optionsForValidation, formCard);
 profileValidation.enableValidation();
 cardValidation.enableValidation();
 
-export {openPopup, popupImage, popupImagePicture, popupImageTitle}
