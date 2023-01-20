@@ -1,8 +1,8 @@
 class Section {
-  constructor({ items, renderer }, selector) {
+  constructor({ items, renderer }, container) {
     this._initialArray = items;
     this._renderer = renderer;
-    this._container = selector
+    this._container = container
   }
 
   renderItems() {

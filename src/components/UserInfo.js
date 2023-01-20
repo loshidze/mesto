@@ -6,15 +6,15 @@ class UserInfo {
 
   getUserInfo() {
     const infoProfile = {
-      name: this._nameProfile.textContent,
-      job: this._jobPfofile.textContent
+      contentname: this._nameProfile.textContent,
+      occupation: this._jobPfofile.textContent
     }
     return infoProfile;
   }
 
   setUserInfo(infoProfile) {
-    this._nameProfile.textContent = infoProfile.name;
-    this._jobPfofile.textContent = infoProfile.job;
+    this._nameProfile.textContent = infoProfile.contentname;
+    this._jobPfofile.textContent = infoProfile.occupation;
   }
 }
 

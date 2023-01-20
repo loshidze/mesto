@@ -11,15 +11,11 @@ import {
   profileEditButton,
   popupProfile,
   formProfile,
-  nameInput,
-  jobInput,
   profileTitle,
   profileSubtitle,
   addCardButton,
   popupCard,
   formCard,
-  placeInput,
-  imageInput,
   popupImage,
   cardContainer,
   optionsForValidation
@@ -28,16 +24,14 @@ import {
 // редактированите профиля
 
 profileEditButton.addEventListener('click', () => {
-  const dataProfile = profileInfo.getUserInfo();
-  nameInput.value = dataProfile.name;
-  jobInput.value = dataProfile.job;
+  profilePopup.setInputValues(profileInfo.getUserInfo());
   profilePopup.open()
 });
 
-const profilePopup = new PopupWithForm({
-  selector: popupProfile,
-  handleSubmit: () => {
-    profileInfo.setUserInfo({name: nameInput.value, job: jobInput.value});
+const profilePopup = new PopupWithForm(
+  popupProfile, {
+  handleSubmit: (data) => {
+    profileInfo.setUserInfo(data);
     profilePopup.close();
   }
 })
@@ -68,10 +62,11 @@ cardContainer
 
 cardsList.renderItems();
 
-const addCardPopup = new PopupWithForm({
-  selector: popupCard,
-  handleSubmit: () => {
-    cardsList.addItem(createCard({ name: placeInput.value, link: imageInput.value }));
+const addCardPopup = new PopupWithForm(
+  popupCard, {
+  handleSubmit: (data) => {
+    const newCard = {name: data.cardname, link: data.link}
+    cardsList.addItem(createCard(newCard));
     addCardPopup.close();
   }
 })
@@ -80,7 +75,7 @@ addCardPopup.setEventListeners();
 
 // попап открытия картинки
 
-const popupImageOpen = new PopupWithImage({selector: popupImage});
+const popupImageOpen = new PopupWithImage(popupImage);
 
 function handleCardClick(name, link) {
   popupImageOpen.open(name, link);
