@@ -6,6 +6,8 @@ class PopupWithForm extends Popup {
     this._handleSubmit = handleSubmit;
     this._form = this._popup.querySelector('.popup__form');
     this._inputs = this._form.querySelectorAll('.popup__input');
+    this._button = this._form.querySelector('.popup__button');
+    this._default = this._button.textContent;
   }
 
   _getInputValues() {
@@ -33,6 +35,14 @@ class PopupWithForm extends Popup {
   close() {
     super.close();
     this._form.reset();
+  }
+
+  loading(isLoading) {
+    if(isLoading) {
+      this._button.textContent = 'Сохранение...'
+    } else {
+      this._button.textContent = this._default
+    }
   }
 }
 

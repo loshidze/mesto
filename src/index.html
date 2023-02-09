@@ -12,11 +12,11 @@
   </header>
   <main class="content">
     <section class="profile">
-      <img class="profile__image" src="<%=require('./images/avatar.jpg')%>" alt="аватарка">
+      <div class="profile__cover"><img class="profile__image" src="#" alt="аватарка"></div>
       <div class="profile__info">
-        <h1 class="profile__title">Жак-Ив Кусто</h1>
+        <h1 class="profile__title"></h1>
         <button aria-label="редактировать профиль" type="button" class="profile__button-info"></button>
-        <p class="profile__subtitle">Исследователь океана</p>
+        <p class="profile__subtitle"></p>
       </div>
       <button aria-label="добавить картинку" type="button" class="profile__button-add"></button>
     </section>
@@ -27,6 +27,20 @@
   <footer class="footer">
     <p class="footer__text">&copy; 2020 Mesto Russia</p>
   </footer>
+
+  <div class="popup popup_type_avatar">
+    <div class="popup__container">
+      <button aria-label="закрыть окно" type="button" class="popup__close"></button>
+      <h2 class="popup__title">Обновить аватар</h2>
+      <form class="popup__form" name="editavatar" action="#" novalidate>
+        <fieldset class="popup__fieldset">
+          <input class="popup__input" id="avatarlink" type="url" name="avatarlink" placeholder="Ссылка на картинку" required>
+          <span class="avatarlink-error popup__input-text-error"></span>
+          <button class="popup__button" type="submit">Сохранить</button>
+        </fieldset>
+      </form>
+    </div>
+  </div>
 
   <div class="popup popup_type_profile">
     <div class="popup__container">
@@ -68,13 +82,26 @@
     </figure>
   </div>
 
+  <div class="popup popup_type_delete">
+    <div class="popup__container">
+      <button aria-label="закрыть окно" type="button" class="popup__close"></button>
+      <h2 class="popup__title">Вы уверены?</h2>
+      <form class="popup__form popup__form_delete" name="confirm" action="#" novalidate>
+        <button class="popup__button" type="submit">Да</button>
+      </form>
+    </div>
+  </div>
+
   <template id="new-card">
     <figure class="gallery__item">
       <img class="gallery__image" src="#" alt="#">
       <button class="gallery__button-delete" aria-label="удалить" type="button"></button>
       <figcaption class="gallery__caption">
         <p class="gallery__item-title"></p>
-        <button aria-label="оценить" type="button" class="gallery__button-like"></button>
+        <div class="gallery__likes-container">
+          <button aria-label="оценить" type="button" class="gallery__button-like"></button>
+          <p class="gallery__likes-quantity"></p>
+        </div>
       </figcaption>
     </figure>
   </template>

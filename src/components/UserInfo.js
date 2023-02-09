@@ -1,7 +1,8 @@
 class UserInfo {
-  constructor(nameProfile, jobPfofile) {
+  constructor(nameProfile, jobPfofile, avatar) {
     this._nameProfile = nameProfile;
     this._jobPfofile = jobPfofile;
+    this._avatar = avatar;
   }
 
   getUserInfo() {
@@ -13,8 +14,9 @@ class UserInfo {
   }
 
   setUserInfo(infoProfile) {
-    this._nameProfile.textContent = infoProfile.contentname;
-    this._jobPfofile.textContent = infoProfile.occupation;
+    this._nameProfile.textContent = infoProfile.name;
+    this._jobPfofile.textContent = infoProfile.about;
+    this._avatar.src = infoProfile.avatar;
   }
 }
 
