@@ -66,12 +66,14 @@ const configApi = {
 
 const api = new Api(configApi);
 
-api.getProfileInfo().then((data) => {
-  profileInfo.setUserInfo(data);
-})
+Promise.all([api.getProfileInfo(), api.getCards()])
+  .then(([profileData, cards]) => {
+    profileInfo.setUserInfo(profileData);
+    cardsList.renderItems(cards);
+  })
   .catch((err) => {
     console.log(err);
-  })
+  });
 
 // редактирование аватара
 
@@ -162,27 +164,20 @@ const addCardPopup = new PopupWithForm(
 
 addCardPopup.setEventListeners();
 
-api.getCards().then((data) => {
-  cardsList.renderItems(data);
-})
-  .catch((err) => {
-    console.log(err);
-  })
+const popupWithConfirmation = new PopupWithConfirmation(popupDelete,
+  () => {
+    const {data, deleteCard} = popupWithConfirmation.getData();
+    api.deleteCard(data._id)
+      .then(() => {
+        deleteCard();
+        popupWithConfirmation.close();
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+  });
 
-  const popupWithConfirmation = new PopupWithConfirmation(popupDelete,
-    () => {
-      const {data, deleteCard} = popupWithConfirmation.getData();
-      api.deleteCard(data._id)
-        .then(() => {
-          deleteCard();
-          popupWithConfirmation.close();
-        })
-        .catch((error) => {
-          console.log(error);
-        })
-    });
-
-  popupWithConfirmation.setEventListeners();
+popupWithConfirmation.setEventListeners();
 
 // попап открытия картинки
 
